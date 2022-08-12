@@ -22,19 +22,21 @@ import scala.deriving.Mirror
 import NamedCodecPlatform.Builder
 
 transparent trait NamedCodecPlatform {
-  def from[TC[_], R](adapter: CodecAdapter[TC, R]): Builder[TC, R] =
+  def from[Enc[_], Dec[_], R](
+      adapter: CodecAdapter[Enc, Dec, R]
+  ): Builder[Enc, Dec, R] =
     new Builder(adapter)
 
-  def from[TC[_], R](
-      adapter: CodecAdapter[TC, R],
+  def from[Enc[_], Dec[_], R](
+      adapter: CodecAdapter[Enc, Dec, R],
       transform: String => String
-  ): Builder[TC, R] = new Builder(adapter, Some(transform))
+  ): Builder[Enc, Dec, R] = new Builder(adapter, Some(transform))
 }
 
 object NamedCodecPlatform {
 
-  final class Builder[TC[_], R](
-      adapter: CodecAdapter[TC, R],
+  final class Builder[Enc[_], Dec[_], R](
+      adapter: CodecAdapter[Enc, Dec, R],
       transform: Option[String => String] = None
   ) {
     inline def of[T](using m: Mirror.Of[T]): NamedCodec[T, R] =
@@ -51,13 +53,14 @@ object NamedCodecPlatform {
         m: Mirror.ProductOf[T]
     ): NamedCodec[T, R] = {
       val mt = getTypeName[T]
-      val codec: TC[T] = summonInline[TC[T]]
+      val encoder: Enc[T] = summonInline[Enc[T]]
+      val decoder: Dec[T] = summonInline[Dec[T]]
 
       new NamedCodec[T, R] {
         def encode(t: T): EncodedMessage[R] =
-          EncodedMessage(mt, adapter.encode(t)(using codec))
+          EncodedMessage(mt, adapter.encode(t)(using encoder))
         def decode(msg: EncodedMessage[R]): Either[String, T] =
-          if canDecode(msg.name) then adapter.decode(msg.data)(using codec)
+          if canDecode(msg.name) then adapter.decode(msg.data)(using decoder)
           else Left("Invalid message type")
         def canDecode(msg: DataTypeName): Boolean = msg == mt
       }

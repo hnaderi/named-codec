@@ -19,9 +19,9 @@ package dev.hnaderi.namedcodec
 final case class TypeName[T](value: String) extends AnyVal
 object TypeName extends TypeNamePlatform
 
-trait CodecAdapter[TC[_], R] {
-  def encode[A: TC](a: A): R
-  def decode[A: TC](r: R): Either[String, A]
+trait CodecAdapter[Enc[_], Dec[_], R] {
+  def encode[A: Enc](a: A): R
+  def decode[A: Dec](r: R): Either[String, A]
 }
 
 final case class EncodedMessage[R](

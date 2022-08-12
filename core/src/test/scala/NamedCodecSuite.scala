@@ -20,7 +20,7 @@ import munit.FunSuite
 
 class NamedCodecSuite extends FunSuite {
 
-  val tcAdapter: CodecAdapter[TC, Int] = new CodecAdapter[TC, Int] {
+  val tcAdapter: CodecAdapter[TC, TC, Int] = new CodecAdapter[TC, TC, Int] {
     def encode[A: TC](a: A): Int = implicitly[TC[A]].enc(a)
     def decode[A: TC](r: Int): Either[String, A] =
       implicitly[TC[A]].dec(r).toRight("Invalid data!")
