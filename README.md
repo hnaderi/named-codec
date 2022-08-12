@@ -13,3 +13,36 @@ that helps with creating codec that encode/decode type name separately.
 
 This is mostly helpful in messaging applications, where payload and message types are separated;
 or for scenarios that you need to store a separate type name to enable type filtering.
+
+### Usage
+
+This library is currently available for Scala binary version 3.1 on both JVM and JS.
+
+To use the latest version, include the following in your `build.sbt`:
+
+```scala
+libraryDependencies ++= Seq(
+  "dev.hnaderi" %% "named-codec" % "@VERSION@"
+)
+
+// or circe module directly
+
+libraryDependencies ++= Seq(
+  "dev.hnaderi" %% "named-codec-circe" % "@VERSION@"
+)
+```
+
+```scala
+enum Data {
+  case A
+  case B(i: Int)
+  case C(s: String, i: Int)
+}
+
+import io.circe.generic.auto.*
+import dev.hnaderi.namedcodec.*
+
+val codec = CirceAdapter.of[Data]
+
+codec.encode(Data.C("string", 101))
+```

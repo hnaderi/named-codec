@@ -16,14 +16,14 @@
 
 package dev.hnaderi.namedcodec
 
-import munit.FunSuite
-import io.circe.generic.auto.*
 import io.circe.Json
+import io.circe.generic.auto.*
+import munit.FunSuite
 
 class CirceAdapterSuite extends FunSuite {
 
   test("Codec from adapter") {
-    val codec = NamedCodec.from(CirceAdapter).of[Data]
+    val codec = CirceAdapter.of[Data]
 
     assertEquals(codec.decode(EncodedMessage("A", Json.obj())), Right(Data.A))
     assertEquals(codec.encode(Data.A), EncodedMessage("A", Json.obj()))

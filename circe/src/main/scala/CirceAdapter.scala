@@ -16,10 +16,10 @@
 
 package dev.hnaderi.namedcodec
 
+import io.circe.Decoder
+import io.circe.Encoder
 import io.circe.Json
 import io.circe.syntax.*
-import io.circe.Encoder
-import io.circe.Decoder
 
 object CirceAdapter extends CodecAdapter[Encoder, Decoder, Json] {
   def decode[A: Decoder](r: Json): Either[String, A] =

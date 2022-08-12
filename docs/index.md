@@ -2,7 +2,7 @@
 
 ### Usage
 
-This library is currently available for Scala binary versions 2.13 and 3.1.
+This library is currently available for Scala binary version 3.1 on both JVM and JS.
 
 To use the latest version, include the following in your `build.sbt`:
 
@@ -10,4 +10,25 @@ To use the latest version, include the following in your `build.sbt`:
 libraryDependencies ++= Seq(
   "dev.hnaderi" %% "named-codec" % "@VERSION@"
 )
+
+// or circe module directly
+
+libraryDependencies ++= Seq(
+  "dev.hnaderi" %% "named-codec-circe" % "@VERSION@"
+)
+```
+
+```scala
+enum Data {
+  case A
+  case B(i: Int)
+  case C(s: String, i: Int)
+}
+
+import io.circe.generic.auto.*
+import dev.hnaderi.namedcodec.*
+
+val codec = CirceAdapter.of[Data]
+
+codec.encode(Data.C("string", 101))
 ```
