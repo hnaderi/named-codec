@@ -17,7 +17,7 @@ ThisBuild / scalaVersion := Scala3 // the default Scala
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-lazy val root = tlCrossRootProject.aggregate(core)
+lazy val root = tlCrossRootProject.aggregate(core, circe)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
@@ -25,6 +25,19 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .settings(
     name := "named-codec",
     libraryDependencies ++= Seq("org.scalameta" %%% "munit" % "0.7.29" % Test)
+  )
+
+lazy val circe = crossProject(JVMPlatform, JSPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("circe"))
+  .dependsOn(core)
+  .settings(
+    name := "named-codec-circe",
+    libraryDependencies ++= Seq(
+      "io.circe" %%% "circe-core" % "0.14.2",
+      "io.circe" %%% "circe-generic" % "0.14.2" % Test,
+      "org.scalameta" %%% "munit" % "0.7.29" % Test
+    )
   )
 
 lazy val docs = project.in(file("site")).enablePlugins(TypelevelSitePlugin)
