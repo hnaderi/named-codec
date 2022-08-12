@@ -90,11 +90,29 @@
         <h1 id="named-codec" class="title">named-codec</h1>
         
         <h3 id="usage" class="section">Usage<a class="anchor-link right" href="#usage"><i class="icofont-laika">&#xef71;</i></a></h3>
-        <p>This library is currently available for Scala binary versions 2.13 and 3.1.</p>
+        <p>This library is currently available for Scala binary version 3.1 on both JVM and JS.</p>
         <p>To use the latest version, include the following in your <code>build.sbt</code>:</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">libraryDependencies</span><span> ++= </span><span class="type-name">Seq</span><span>(
-  </span><span class="string-literal">&quot;dev.hnaderi&quot;</span><span> %% </span><span class="string-literal">&quot;named-codec&quot;</span><span> % </span><span class="string-literal">&quot;0.0-d2505f0-SNAPSHOT&quot;</span><span>
+  </span><span class="string-literal">&quot;dev.hnaderi&quot;</span><span> %% </span><span class="string-literal">&quot;named-codec&quot;</span><span> % </span><span class="string-literal">&quot;0.0-103da3b-SNAPSHOT&quot;</span><span>
+)
+
+</span><span class="comment">// or circe module directly
+</span><span>
+</span><span class="identifier">libraryDependencies</span><span> ++= </span><span class="type-name">Seq</span><span>(
+  </span><span class="string-literal">&quot;dev.hnaderi&quot;</span><span> %% </span><span class="string-literal">&quot;named-codec-circe&quot;</span><span> % </span><span class="string-literal">&quot;0.0-103da3b-SNAPSHOT&quot;</span><span>
 )</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">enum</span><span> </span><span class="type-name">Data</span><span> {
+  </span><span class="keyword">case</span><span> </span><span class="type-name">A</span><span>
+  </span><span class="keyword">case</span><span> </span><span class="type-name">B</span><span>(</span><span class="identifier">i</span><span>: </span><span class="type-name">Int</span><span>)
+  </span><span class="keyword">case</span><span> </span><span class="type-name">C</span><span>(</span><span class="identifier">s</span><span>: </span><span class="type-name">String</span><span>, </span><span class="identifier">i</span><span>: </span><span class="type-name">Int</span><span>)
+}
+
+</span><span class="keyword">import</span><span> </span><span class="identifier">io</span><span>.</span><span class="identifier">circe</span><span>.</span><span class="identifier">generic</span><span>.</span><span class="identifier">auto</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">dev</span><span>.</span><span class="identifier">hnaderi</span><span>.</span><span class="identifier">namedcodec</span><span>.*
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">codec</span><span> = </span><span class="type-name">CirceAdapter</span><span>.</span><span class="identifier">of</span><span>[</span><span class="type-name">Data</span><span>]
+
+</span><span class="identifier">codec</span><span>.</span><span class="identifier">encode</span><span>(</span><span class="type-name">Data</span><span>.</span><span class="type-name">C</span><span>(</span><span class="string-literal">&quot;string&quot;</span><span>, </span><span class="number-literal">101</span><span>))</span></code></pre>
 
         <hr style="margin-top: 30px"/>
         <footer style="font-size: 90%; text-align: center">
