@@ -95,3 +95,10 @@ object NamedCodecPlatform {
   }
 
 }
+
+extension [Enc[_], Dec[_], R](adapter: CodecAdapter[Enc, Dec, R]) {
+  inline def of[T: Mirror.Of]: NamedCodec[T, R] = Builder(adapter).of
+  inline def of[T: Mirror.Of](
+      transform: String => String
+  ): NamedCodec[T, R] = Builder(adapter, Some(transform)).of
+}
