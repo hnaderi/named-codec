@@ -62,7 +62,7 @@ object NamedCodecPlatform {
         def decode(msg: EncodedMessage[R]): Either[String, T] =
           if canDecode(msg.name) then adapter.decode(msg.data)(using decoder)
           else Left("Invalid message type")
-        def canDecode(msg: DataTypeName): Boolean = msg == mt
+        def canDecode(msg: String): Boolean = msg == mt
       }
     }
 
@@ -86,9 +86,9 @@ object NamedCodecPlatform {
             .toRight(s"Unknown message type ${msg.name}")
             .flatMap(_.decode(msg))
 
-        def canDecode(msg: DataTypeName): Boolean = getDecoder(msg).isDefined
+        def canDecode(msg: String): Boolean = getDecoder(msg).isDefined
 
-        private def getDecoder(msg: DataTypeName): Option[NamedCodec[T, R]] =
+        private def getDecoder(msg: String): Option[NamedCodec[T, R]] =
           codecs.find(_.canDecode(msg))
       }
     }

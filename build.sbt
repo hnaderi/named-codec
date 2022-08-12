@@ -17,7 +17,7 @@ ThisBuild / scalaVersion := Scala3 // the default Scala
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-lazy val root = tlCrossRootProject.aggregate(core, circe)
+lazy val root = tlCrossRootProject.aggregate(core, circe, unidocs)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
@@ -43,3 +43,12 @@ lazy val circe = crossProject(JVMPlatform, JSPlatform)
 lazy val docs = project
   .in(file("site"))
   .enablePlugins(TypelevelSitePlugin)
+
+lazy val unidocs = project
+  .in(file("unidocs"))
+  .enablePlugins(TypelevelUnidocPlugin)
+  .settings(
+    name := "named-codec-docs",
+    description := "unified docs for named codec",
+    ScalaUnidoc / unidoc / unidocProjectFilter := inAnyProject
+  )

@@ -25,10 +25,10 @@ trait CodecAdapter[Enc[_], Dec[_], R] {
 }
 
 final case class EncodedMessage[R](
-    name: DataTypeName,
+    name: String,
     data: R
 ) {
-  def rename(f: DataTypeName => DataTypeName): EncodedMessage[R] =
+  def rename(f: String => String): EncodedMessage[R] =
     copy(name = f(name))
 }
 
@@ -49,12 +49,12 @@ object NamedEncoder {
 
 trait NamedDecoder[A, R] { self =>
   def decode(msg: EncodedMessage[R]): Either[String, A]
-  def canDecode(msg: DataTypeName): Boolean
+  def canDecode(msg: String): Boolean
 
   final def map[B](f: A => B): NamedDecoder[B, R] = new NamedDecoder[B, R] {
     def decode(msg: EncodedMessage[R]): Either[String, B] =
       self.decode(msg).map(f)
-    def canDecode(msg: DataTypeName): Boolean = self.canDecode(msg)
+    def canDecode(msg: String): Boolean = self.canDecode(msg)
   }
 }
 
@@ -65,7 +65,7 @@ trait NamedCodec[A, R] extends NamedEncoder[A, R], NamedDecoder[A, R] {
       def encode(b: B): EncodedMessage[R] = self.encode(fcon(b))
       def decode(msg: EncodedMessage[R]): Either[String, B] =
         self.decode(msg).map(fcov)
-      def canDecode(msg: DataTypeName): Boolean = self.canDecode(msg)
+      def canDecode(msg: String): Boolean = self.canDecode(msg)
     }
   final def eimap[B](
       fcon: B => A
@@ -74,7 +74,7 @@ trait NamedCodec[A, R] extends NamedEncoder[A, R], NamedDecoder[A, R] {
       def encode(b: B): EncodedMessage[R] = self.encode(fcon(b))
       def decode(msg: EncodedMessage[R]): Either[String, B] =
         self.decode(msg).flatMap(fcov)
-      def canDecode(msg: DataTypeName): Boolean = self.canDecode(msg)
+      def canDecode(msg: String): Boolean = self.canDecode(msg)
     }
 }
 

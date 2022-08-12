@@ -16,6 +16,4 @@
 
 package dev.hnaderi.namedcodec
 
-type DataTypeName = String
-
 def typeName[T](using tn: TypeName[T]): String = tn.value
