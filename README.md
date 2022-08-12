@@ -2,7 +2,7 @@
 Scala3 codec adapter that separates types and payloads
 <a href="https://typelevel.org/cats/"><img src="https://typelevel.org/cats/img/cats-badge.svg" height="40px" align="right" alt="Cats friendly" /></a>
 
-[![named-codec-core Scala version support](https://index.scala-lang.org/hnaderi/named-codec/named-codec-core/latest.svg?style=flat-square)](https://index.scala-lang.org/hnaderi/named-codec/named-codec-core)
+[![named-codec-core Scala version support](https://index.scala-lang.org/hnaderi/named-codec/named-codec/latest.svg?style=flat-square)](https://index.scala-lang.org/hnaderi/named-codec/named-codec)
 [![javadoc](https://javadoc.io/badge2/dev.hnaderi/named-codec-docs_3/scaladoc.svg?style=flat-square)](https://javadoc.io/doc/dev.hnaderi/named-codec-docs_3) 
 <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/hnaderi/named-codec/Continuous%20Integration?style=flat-square">
 <img alt="GitHub" src="https://img.shields.io/github/license/hnaderi/named-codec?style=flat-square">  
