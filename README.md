@@ -45,4 +45,6 @@ import dev.hnaderi.namedcodec.*
 val codec = CirceAdapter.of[Data]
 
 codec.encode(Data.C("string", 101))
+
+// EncodedMessage(name = "C", data = { "s": "string", i: 101 })
 ```
