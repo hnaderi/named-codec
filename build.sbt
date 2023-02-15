@@ -1,4 +1,4 @@
-ThisBuild / tlBaseVersion := "0.0"
+ThisBuild / tlBaseVersion := "0.1"
 
 ThisBuild / organization := "dev.hnaderi"
 ThisBuild / organizationName := "Hossein Naderi"
@@ -19,15 +19,15 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 lazy val root = tlCrossRootProject.aggregate(core, circe, unidocs)
 
-lazy val core = crossProject(JVMPlatform, JSPlatform)
+lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .crossType(CrossType.Pure)
   .in(file("core"))
   .settings(
     name := "named-codec",
-    libraryDependencies ++= Seq("org.scalameta" %%% "munit" % "0.7.29" % Test)
+    libraryDependencies ++= Seq("org.scalameta" %%% "munit" % "1.0.0-M7" % Test)
   )
 
-lazy val circe = crossProject(JVMPlatform, JSPlatform)
+lazy val circe = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .crossType(CrossType.Pure)
   .in(file("circe"))
   .dependsOn(core)
@@ -36,7 +36,7 @@ lazy val circe = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies ++= Seq(
       "io.circe" %%% "circe-core" % "0.14.4",
       "io.circe" %%% "circe-generic" % "0.14.4" % Test,
-      "org.scalameta" %%% "munit" % "0.7.29" % Test
+      "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
     )
   )
 
