@@ -34,8 +34,8 @@ lazy val circe = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .settings(
     name := "named-codec-circe",
     libraryDependencies ++= Seq(
-      "io.circe" %%% "circe-core" % "0.14.5",
-      "io.circe" %%% "circe-generic" % "0.14.5" % Test,
+      "io.circe" %%% "circe-core" % "0.14.6",
+      "io.circe" %%% "circe-generic" % "0.14.6" % Test,
       "org.scalameta" %%% "munit" % "1.0.0-M8" % Test
     )
   )
