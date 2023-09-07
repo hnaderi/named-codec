@@ -40,8 +40,19 @@ lazy val circe = crossProject(JVMPlatform, JSPlatform, NativePlatform)
     )
   )
 
+import laika.helium.config._
+import laika.ast.Path.Root
+
 lazy val docs = project
   .in(file("site"))
+  .settings(
+    tlSiteHelium ~= {
+      _.site
+        .topNavigationBar(
+          homeLink = IconLink.internal(Root / "index.md", HeliumIcon.home)
+        )
+    }
+  )
   .enablePlugins(TypelevelSitePlugin)
 
 lazy val unidocs = project
