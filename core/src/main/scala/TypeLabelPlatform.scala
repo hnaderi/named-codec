@@ -18,7 +18,6 @@ package dev.hnaderi.namedcodec
 
 import scala.compiletime.*
 import scala.deriving.Mirror
-import scala.quoted._
 
 trait TypeNamePlatform {
   inline given [T](using m: Mirror.Of[T]): TypeName[T] =
