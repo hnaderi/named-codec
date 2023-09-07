@@ -42,16 +42,14 @@ object NamedCodecPlatform {
     inline def of[T](using m: Mirror.Of[T]): NamedCodec[T, R] =
       inline m match {
         case s: Mirror.SumOf[T]     => sumInst(s)
-        case p: Mirror.ProductOf[T] => productInst(p)
+        case _: Mirror.ProductOf[T] => productInst
       }
 
     private inline def getTypeName[T]: String =
       val tn = summonInline[TypeName[T]].value
       transform.getOrElse(identity[String]).apply(tn)
 
-    private inline def productInst[T](
-        m: Mirror.ProductOf[T]
-    ): NamedCodec[T, R] = {
+    private inline def productInst[T]: NamedCodec[T, R] = {
       val mt = getTypeName[T]
       val encoder: Enc[T] = summonInline[Enc[T]]
       val decoder: Dec[T] = summonInline[Dec[T]]
