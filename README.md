@@ -16,7 +16,7 @@ or for scenarios that you need to store a separate type name to enable type filt
 
 ### Usage
 
-This library is currently available for Scala binary version 3.1 on both JVM and JS.
+This library is currently available for Scala binary version 3.3 on both JVM, JS and native.
 
 To use the latest version, include the following in your `build.sbt`:
 
