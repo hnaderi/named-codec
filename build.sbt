@@ -12,7 +12,7 @@ ThisBuild / tlSonatypeUseLegacyHost := false
 
 ThisBuild / tlSitePublishBranch := Some("main")
 
-val Scala3 = "3.3.0"
+val Scala3 = "3.3.1"
 ThisBuild / scalaVersion := Scala3 // the default Scala
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
