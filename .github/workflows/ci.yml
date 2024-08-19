@@ -220,6 +220,17 @@ jobs:
           modules-ignore: rootjs_3 docs_3 rootjvm_3 rootnative_3
           configs-ignore: test scala-tool scala-doc-tool test-internal
 
+  post-build:
+    name: post build
+    needs: [build]
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: post build
+        run: echo success!
+
   site:
     name: Generate Site
     strategy:
