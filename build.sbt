@@ -8,8 +8,6 @@ ThisBuild / developers := List(
   tlGitHubDev("hnaderi", "Hossein Naderi")
 )
 
-ThisBuild / tlSonatypeUseLegacyHost := false
-
 ThisBuild / tlSitePublishBranch := Some("main")
 
 val Scala3 = "3.3.3"
