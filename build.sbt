@@ -8,7 +8,6 @@ ThisBuild / developers := List(
   tlGitHubDev("hnaderi", "Hossein Naderi")
 )
 ThisBuild / tlSitePublishBranch := Some("main")
-ThisBuild / sonatypeCredentialHost := xerial.sbt.Sonatype.sonatypeCentralHost
 
 val Scala3 = "3.3.3"
 ThisBuild / scalaVersion := Scala3 // the default Scala
