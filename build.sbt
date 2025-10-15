@@ -9,7 +9,7 @@ ThisBuild / developers := List(
 )
 ThisBuild / tlSitePublishBranch := Some("main")
 
-val Scala3 = "3.3.3"
+val Scala3 = "3.3.7"
 ThisBuild / scalaVersion := Scala3 // the default Scala
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
