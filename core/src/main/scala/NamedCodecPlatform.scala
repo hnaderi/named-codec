@@ -67,7 +67,7 @@ object NamedCodecPlatform {
     private inline def summonAll[T <: Tuple]: List[NamedCodec[?, R]] =
       inline erasedValue[T] match {
         case _: EmptyTuple => Nil
-        case _: (h *: t) =>
+        case _: (h *: t)   =>
           of(using summonInline[Mirror.Of[h]]) +: summonAll[t]
       }
 
